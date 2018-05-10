@@ -31,7 +31,7 @@ class API_Handler
 		@m_url =  "https://api.playbattlegrounds.com/shards/" + @m_platform + "-" + @m_region + "/"
 	end
 
-	def grabMatchWithUsername(player_username)
+	def grabMatchWithUsername(player_username, number_of_matches)
 		#Make a get request to the api
 		res = RestClient::Request.execute(
 			:method => :get,
@@ -48,8 +48,7 @@ class API_Handler
 		match_list = Array.new
 		i = 0
 		for _match in  matches
-			if (i < 1)
-				puts "."
+			if (i < number_of_matches)
 				new_match_id = _match['id']
 				new_match = grabMatch(new_match_id) 
 				match_list.push(new_match)
@@ -189,25 +188,3 @@ class Match_Stats
 		@m_gamemode = gamemode
 	end 
 end
-
-def displayMatch(match)
-	puts "Map: " + match.m_map
-	duration = match.m_duration / 60
-	puts "Duration: " + duration.to_s
-	puts "Gamemode: " + match.m_gamemode.to_s
-
-	for team in match.m_teams
-		puts "Squad number:" + team.m_teamnumber.to_s + ":"
-		puts "Rank:" + team.m_rank.to_s
-		for player in team.m_players
-			puts player.m_name + ":"
-			puts "Kills:" + player.m_kills.to_s
-		end
-	end
-end
-
-
-
-myApi = API_Handler.new("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyODkwYWRhMC0yMmJiLTAxMzYtODU2OS0xZGY5Mjc3MjU3ZmYiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTIzNzgzNTk3LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InBsYXllcmtub3ducyIsInNjb3BlIjoiY29tbXVuaXR5IiwibGltaXQiOjEwfQ.VOVhXVpcfAzwxIutHKRuSTi7dApBnriowsl0cmcszNc")
-match_list = myApi.grabMatchWithUsername("Krunge")
-displayMatch(match_list[0])
