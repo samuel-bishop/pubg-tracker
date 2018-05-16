@@ -20,7 +20,7 @@
       </div>
     </nav>
 	<%= require_relative "../../assets/rAPI_handler.rb" %>
-	<%= api_handler = API_Handler.new("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyODkwYWRhMC0yMmJiLTAxMzYtODU2OS0xZGY5Mjc3MjU3ZmYiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTIzNzgzNTk3LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InBsYXllcmtub3ducyIsInNjb3BlIjoiY29tbXVuaXR5IiwibGltaXQiOjEwfQ.VOVhXVpcfAzwxIutHKRuSTi7dApBnriowsl0cmcszNc") %>
+	<%= api_handler = API_Handler.new() %>
 	<%= form_tag(api_handler.m_username, :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Username.." %>
     <%= submit_tag "Search", :name => nil %>

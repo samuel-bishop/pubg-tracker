@@ -14,9 +14,9 @@ require 'rest-client'
 class API_Handler
 	attr_accessor :m_platform, :m_region, :m_headerAccept, :m_key, :m_filter_match, :m_filter_playername, :m_username
 
-	def initialize(my_api_key)
+	def initialize()
 		#Initialize class variables
-		@m_key = my_api_key
+		@m_key = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyODkwYWRhMC0yMmJiLTAxMzYtODU2OS0xZGY5Mjc3MjU3ZmYiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTIzNzgzNTk3LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InBsYXllcmtub3ducyIsInNjb3BlIjoiY29tbXVuaXR5IiwibGltaXQiOjEwfQ.VOVhXVpcfAzwxIutHKRuSTi7dApBnriowsl0cmcszNc"
 		@m_platform = "pc"
 		@m_region = "na"
 		@m_headerAccept = "application/vnd.api+json"
@@ -146,6 +146,22 @@ class API_Handler
 		new_match = Match_Stats.new(team_array, duration, mapname, gamemode)
 		return new_match
 	end
+	
+	def displayMatch(match)
+	puts "Map: " + match.m_map
+	duration = match.m_duration / 60
+	puts "Duration: " + duration.to_s
+	puts "Gamemode: " + match.m_gamemode.to_s
+
+	for team in match.m_teams
+		puts "Squad number:" + team.m_teamnumber.to_s + ":"
+		puts "Rank:" + team.m_rank.to_s
+		for player in team.m_players
+			puts player.m_name + ":"
+			puts "Kills:" + player.m_kills.to_s
+		end
+	end
+end
 end
 
 class Roster

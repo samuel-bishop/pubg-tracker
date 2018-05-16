@@ -4,26 +4,22 @@
 
 #include the api handler
 require_relative 'rAPI_handler.rb'
-
+require 'fox16'
+include Fox
 #Test code 
 
-def displayMatch(match)
-	puts "Map: " + match.m_map
-	duration = match.m_duration / 60
-	puts "Duration: " + duration.to_s
-	puts "Gamemode: " + match.m_gamemode.to_s
+app = FXApp.new
+main = FXMainWindow.new(app, "Welcome", :width => 250, :height => 100)
+searchTarget = FXDataTarget.new("")
+seachField = FXTextField.new(main, 16, searchTarget, FXDataTarget::ID_VALUE, TEXTFIELD_NORMAL|LAYOUT_FILL_X|LAYOUT_FILL_COLUMN)
+FXButton.new(main, "Search", nil, app, FXApp::ID_QUIT)
+app.create
+main.show(PLACEMENT_SCREEN)
+app.run
 
-	for team in match.m_teams
-		puts "Squad number:" + team.m_teamnumber.to_s + ":"
-		puts "Rank:" + team.m_rank.to_s
-		for player in team.m_players
-			puts player.m_name + ":"
-			puts "Kills:" + player.m_kills.to_s
-		end
-	end
-end
+
 
 #dont let other people mess with your api
-myApi = API_Handler.new("eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJqdGkiOiIyODkwYWRhMC0yMmJiLTAxMzYtODU2OS0xZGY5Mjc3MjU3ZmYiLCJpc3MiOiJnYW1lbG9ja2VyIiwiaWF0IjoxNTIzNzgzNTk3LCJwdWIiOiJibHVlaG9sZSIsInRpdGxlIjoicHViZyIsImFwcCI6InBsYXllcmtub3ducyIsInNjb3BlIjoiY29tbXVuaXR5IiwibGltaXQiOjEwfQ.VOVhXVpcfAzwxIutHKRuSTi7dApBnriowsl0cmcszNc")
-match_list = myApi.grabMatchWithUsername("Krunge", 1)
-displayMatch(match_list[0])
+# myApi = API_Handler.new
+# match_list = myApi.grabMatchWithUsername("Krunge", 1)
+# myApi.displayMatch(match_list[0])
